@@ -75,8 +75,8 @@ namespace Qv2ray::core::handler
         tcpingHelper = new LatencyTestHost(5, this);
         connect(tcpingHelper, &LatencyTestHost::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
         //
-        // Save per 1 minutes.
-        saveTimerId = startTimer(1 * 60 * 1000);
+        // Save per 1 hour.
+        saveTimerId = startTimer(1 * 60 * 60 * 1000);
         // Do not ping all...
         pingConnectionTimerId = startTimer(60 * 1000);
     }
@@ -124,16 +124,18 @@ namespace Qv2ray::core::handler
     {
         for (const auto &connection : connections.keys())
         {
-            StartLatencyTest(connection);
+            emit OnLatencyTestStarted(connection);
         }
+        tcpingHelper->TestLatency(connections.keys(), GlobalConfig.networkConfig.latencyTestingMethod);
     }
 
     void QvConfigHandler::StartLatencyTest(const GroupId &id)
     {
         for (const auto &connection : groups[id].connections)
         {
-            StartLatencyTest(connection);
+            emit OnLatencyTestStarted(connection);
         }
+        tcpingHelper->TestLatency(groups[id].connections, GlobalConfig.networkConfig.latencyTestingMethod);
     }
 
     void QvConfigHandler::StartLatencyTest(const ConnectionId &id)
@@ -356,7 +358,6 @@ namespace Qv2ray::core::handler
     QvConfigHandler::~QvConfigHandler()
     {
         LOG(MODULE_CORE_HANDLER, "Triggering save settings from destructor")
-        tcpingHelper->StopAllLatencyTest();
         delete kernelHandler;
         SaveConnectionConfig();
     }
@@ -616,7 +617,8 @@ namespace Qv2ray::core::handler
             filteredConnections.count() > 5 ||
             QvMessageBoxAsk(nullptr, tr("Update Subscription"),
                             tr("%1 out of %n entrie(s) have been filtered out, do you want to continue?", "", _newConnections.count())
-                                .arg(filteredConnections.count())) == QMessageBox::Yes;
+                                    .arg(filteredConnections.count()) +
+                                NEWLINE + GetDisplayName(id)) == QMessageBox::Yes;
 
         for (const auto &config : useFilteredConnections ? filteredConnections : _newConnections)
         {
@@ -659,16 +661,27 @@ namespace Qv2ray::core::handler
         }
 
         // Check if anything left behind (not being updated or changed significantly)
-        LOG(MODULE_CORE_HANDLER, "Removed old connections not have been matched.")
-        for (const auto &conn : originalConnectionIdList)
+        if (!originalConnectionIdList.isEmpty())
         {
-            LOG(MODULE_CORE_HANDLER, "Removing connections not in the new subscription: " + conn.toString())
-            RemoveConnectionFromGroup(conn, id);
+            bool needContinue =
+                QvMessageBoxAsk(nullptr, //
+                                tr("Update Subscription"),
+                                tr("There're %n connection(s) in the group that do not belong the current subscription (any more).", "",
+                                   originalConnectionIdList.count()) +
+                                    NEWLINE + GetDisplayName(id) + NEWLINE + tr("Would you like to remove them?")) == QMessageBox::Yes;
+            if (needContinue)
+            {
+                LOG(MODULE_CORE_HANDLER, "Removed old connections not have been matched.")
+                for (const auto &conn : originalConnectionIdList)
+                {
+                    LOG(MODULE_CORE_HANDLER, "Removing connections not in the new subscription: " + conn.toString())
+                    RemoveConnectionFromGroup(conn, id);
+                }
+            }
         }
 
         // Update the time
         groups[id].lastUpdatedDate = system_clock::to_time_t(system_clock::now());
-
         return hasErrorOccured;
     }
 

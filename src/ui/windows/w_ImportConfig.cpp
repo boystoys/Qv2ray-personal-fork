@@ -168,13 +168,18 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             while (!linkList.isEmpty())
             {
                 aliasPrefix = nameTxt->text();
-                auto link = linkList.takeFirst();
-                if (link.trimmed().isEmpty() || link.startsWith("#") || link.startsWith("//"))
-                {
+                const auto link = linkList.takeFirst().trimmed();
+                if (link.isEmpty() || link.startsWith("#") || link.startsWith("//"))
                     continue;
+
+                // warn if someone tries to import a https:// link
+                if (link.startsWith("https://"))
+                {
+                    errorsList->addItem(tr("WARNING: You may have mistaken 'subscription link' with 'share link'"));
                 }
+
                 QString errMessage;
-                QString newGroupName = "";
+                QString newGroupName;
                 const auto config = ConvertConfigFromString(link, &aliasPrefix, &errMessage, &newGroupName);
 
                 // If the config is empty or we have any err messages.
@@ -240,7 +245,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
             QString path = fileLineTxt->text();
 
-            if (!V2rayKernelInstance::ValidateConfig(path))
+            if (!V2RayKernelInstance::ValidateConfig(path))
             {
                 QvMessageBoxWarn(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
                 return;
@@ -257,7 +262,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 }
 void ImportConfigWindow::on_selectImageBtn_clicked()
 {
-    QString dir = QFileDialog::getOpenFileName(this, tr("Select an image to import"));
+    const auto dir = QFileDialog::getOpenFileName(this, tr("Select an image to import"));
     imageFileEdit->setText(dir);
     //
     QFile file(dir);
@@ -267,17 +272,14 @@ void ImportConfigWindow::on_selectImageBtn_clicked()
     auto buf = file.readAll();
     file.close();
     //
-    auto str = DecodeQRCode(QImage::fromData(buf));
+    const auto str = DecodeQRCode(QImage::fromData(buf));
 
     if (str.isEmpty())
     {
         QvMessageBoxWarn(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from the image."));
         return;
     }
-    else
-    {
-        vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
-    }
+    qrCodeLinkTxt->setText(str.trimmed());
 }
 void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {

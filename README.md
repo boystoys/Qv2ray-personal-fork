@@ -1,10 +1,10 @@
-# Qv2ray - Make V2ray real cross-platform
+# Qv2ray - Make V2Ray real cross-platform
 
 [![HitCount](http://hits.dwyl.io/Qv2ray/Qv2ray.svg)](http://hits.dwyl.io/Qv2ray/Qv2ray)
 [![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square&logo=github)](https://github.com/Qv2ray/Qv2ray/releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)](https://github.com/Qv2ray/Qv2ray/releases)
 
-使用 Qt 框架的跨平台 v2ray 客户端。支持 Windows, Linux, macOS。
+使用 Qt 框架的跨平台 V2Ray 客户端。支持 Windows, Linux, macOS。
 
 ## Availability & Status
 
@@ -43,10 +43,10 @@
   <td>Fedora</td>
   <td>
    <a href="https://build.opensuse.org/package/show/home:zzndb:Qv2ray/Qv2ray">
-    <img alt="Copr Stable" src="https://img.shields.io/badge/Fedora%20Copr-stable-blue" />
+    <img alt="OBS Stable" src="https://img.shields.io/badge/Fedora%20OBS-stable-blue" />
    </a><br/>
    <a href="https://build.opensuse.org/package/show/home:zzndb:Qv2ray/Qv2ray-preview">
-    <img alt="Copr Preview" src="https://img.shields.io/badge/Fedora%20Copr-preview-blue" />
+    <img alt="OBS Preview" src="https://img.shields.io/badge/Fedora%20OBS-preview-blue" />
    </a>
   </td>
  </tr>
@@ -110,7 +110,7 @@
 Qv2ray is licenced under [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ```
-    Qv2ray, A Qt frontend for v2ray. Written in C++
+    Qv2ray, A Qt frontend for V2Ray. Written in C++
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
