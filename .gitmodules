@@ -12,7 +12,7 @@
 	branch = 39d0644bd3
 [submodule "3rdparty/zxing-cpp"]
 	path = 3rdparty/zxing-cpp
-	url = https://github.com/nu-book/zxing-cpp
+	url = https://github.com/nu-book/zxing-cpp.git
 	branch = 5351b67eac
 [submodule "src/plugin-interface"]
 	path = src/plugin-interface
