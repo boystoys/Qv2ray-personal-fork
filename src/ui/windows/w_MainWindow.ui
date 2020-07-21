@@ -311,8 +311,6 @@
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
-           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
               <widget class="QPushButton" name="chartVisibilityBtn">
@@ -450,8 +448,6 @@
               </widget>
              </item>
             </layout>
-           </item>
-          </layout>
          </item>
         </layout>
        </widget>
