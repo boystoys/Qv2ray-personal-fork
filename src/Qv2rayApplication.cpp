@@ -91,6 +91,7 @@ namespace Qv2ray
 
     void Qv2rayApplication::aboutToQuitSlot()
     {
+        PluginHost->Send_OnStopEvent({ true });
         delete mainWindow;
         delete hTray;
         delete ConnectionManager;
@@ -184,6 +185,7 @@ namespace Qv2ray
 
     Qv2rayExitCode Qv2rayApplication::RunQv2ray()
     {
+        PluginHost->Send_OnLaunchEvent({ true });
         // Show MainWindow
         mainWindow = new MainWindow();
         if (Qv2rayProcessArgument.arguments.contains(Qv2rayProcessArguments::QV2RAY_LINK))

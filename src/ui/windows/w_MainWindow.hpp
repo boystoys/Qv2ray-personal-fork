@@ -53,6 +53,8 @@ class MainWindow
     //
     void on_chartVisibilityBtn_clicked();
     void on_logVisibilityBtn_clicked();
+    void on_infoSyncBtn_clicked();
+    void on_userInfoBtn_clicked();
     void on_clearChartBtn_clicked();
     void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
     void on_masterLogBrowser_textChanged();

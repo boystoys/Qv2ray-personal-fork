@@ -17,7 +17,13 @@ libs/libqvb-*
 
 build**/
 
+/out/
+/#Plugin/
+/-QtV2ray-HTTPAPIPlugin/
+
 # IntelliJ-based IDE Trash
 /.idea/
 *.iml
 /cmake-build-debug
+/cmake-build-release
+

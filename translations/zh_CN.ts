@@ -749,6 +749,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>  速度图像</translation>
     </message>
     <message>
+        <source>  User Info</source>
+        <translation>  用户信息</translation>
+    </message>
+    <message>
+        <source>Airport Not Found</source>
+        <translation>未找到可获取数据的机场</translation>
+    </message>
+    
+    <message>
         <source>Clear chart data</source>
         <translation>清除图表数据</translation>
     </message>
@@ -3007,28 +3016,86 @@ Maybe you have downloaded the wrong core?</source>
 <context>
     <name>SpeedWidget</name>
     <message>
-        <source>Proxy ↑</source>
-        <translation>代理↑</translation>
+        <source>Proxy Upload</source>
+        <translation>代理上传</translation>
     </message>
     <message>
-        <source>Proxy ↓</source>
-        <translation>代理↓</translation>
+        <source>Proxy Download</source>
+        <translation>代理下载</translation>
     </message>
     <message>
-        <source>Direct ↑</source>
-        <translation>直连↑</translation>
+        <source>Direct Upload</source>
+        <translation>直连上传</translation>
     </message>
     <message>
-        <source>Direct ↓</source>
-        <translation>直连↓</translation>
+        <source>Direct Download</source>
+        <translation>直连下载</translation>
     </message>
     <message>
-        <source>Total ↑</source>
-        <translation>总计↑</translation>
+        <source>Total Upload</source>
+        <translation>总计上传</translation>
     </message>
     <message>
-        <source>Total ↓</source>
-        <translation>总计↓</translation>
+        <source>Total Download</source>
+        <translation>总计下载</translation>
+    </message>
+</context>
+<context>
+    <name>UserInfo</name>
+    <message>
+        <source>Hello!</source>
+        <translation>您好：</translation>
+    </message>
+    <message>
+        <source>Current Tire:</source>
+        <translation>当前等级：</translation>
+    </message>
+    <message>
+        <source>Total Traffic used:</source>
+        <translation>流量总计可用：</translation>
+    </message>
+    <message>
+        <source>Service expire in:</source>
+        <translation>服务过期于：</translation>
+    </message>
+    <message>
+        <source>Traffic used today:</source>
+        <translation>总计已用流量：</translation>
+    </message>
+    <message>
+        <source>Account Balance:</source>
+        <translation>账户余额：</translation>
+    </message>
+    <message>
+        <source>Goto Website</source>
+        <translation>访问网站</translation>
+    </message>
+</context>
+<context>
+    <name>w_LoginWindow</name>
+    <message>
+        <source>Email</source>
+        <translation>您的邮箱：</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>您的密码:</translation>
+    </message>
+    <message>
+        <source>Not registered yet?</source>
+        <translation>还没有账户?</translation>
+    </message>
+    <message>
+        <source>Goto website and register</source>
+        <translation>跳转到网站注册</translation>
+    </message>
+    <message>
+        <source>Login</source>
+        <translation>登录</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>取消</translation>
     </message>
 </context>
 <context>

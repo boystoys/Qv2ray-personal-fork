@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Bittorrent Client using Qt and libtorrent.
  * Copyright (C) 2015 Anton Lashkov <lenton_91@mail.ru>
  *
@@ -182,18 +182,18 @@ void SpeedWidget::UpdateSpeedPlotSettings()
     m_properties.clear();
     if (Graph.useOutboundStats)
     {
-        m_properties[OUTBOUND_PROXY_UP] = { tr("Proxy ↑"), getPen(Graph.colorConfig[API_OUTBOUND_PROXY].value1) };
-        m_properties[OUTBOUND_PROXY_DOWN] = { tr("Proxy ↓"), getPen(Graph.colorConfig[API_OUTBOUND_PROXY].value2) };
+        m_properties[OUTBOUND_PROXY_UP] = { tr("Proxy Upload"), getPen(Graph.colorConfig[API_OUTBOUND_PROXY].value1) };
+        m_properties[OUTBOUND_PROXY_DOWN] = { tr("Proxy Download"), getPen(Graph.colorConfig[API_OUTBOUND_PROXY].value2) };
         if (Graph.hasDirectStats)
         {
-            m_properties[OUTBOUND_DIRECT_UP] = { tr("Direct ↑"), getPen(Graph.colorConfig[API_OUTBOUND_DIRECT].value1) };
-            m_properties[OUTBOUND_DIRECT_DOWN] = { tr("Direct ↓"), getPen(Graph.colorConfig[API_OUTBOUND_DIRECT].value2) };
+            m_properties[OUTBOUND_DIRECT_UP] = { tr("Direct Upload"), getPen(Graph.colorConfig[API_OUTBOUND_DIRECT].value1) };
+            m_properties[OUTBOUND_DIRECT_DOWN] = { tr("Direct Download"), getPen(Graph.colorConfig[API_OUTBOUND_DIRECT].value2) };
         }
     }
     else
     {
-        m_properties[INBOUND_UP] = { tr("Total ↑"), getPen(Graph.colorConfig[API_INBOUND].value1) };
-        m_properties[INBOUND_DOWN] = { tr("Total ↓"), getPen(Graph.colorConfig[API_INBOUND].value2) };
+        m_properties[INBOUND_UP] = { tr("Total Upload"), getPen(Graph.colorConfig[API_INBOUND].value1) };
+        m_properties[INBOUND_DOWN] = { tr("Total Download"), getPen(Graph.colorConfig[API_INBOUND].value2) };
     }
 #undef Graph
 }

@@ -227,8 +227,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>480</width>
-          <height>736</height>
+          <width>463</width>
+          <height>979</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -255,6 +255,62 @@
             </property>
            </layout>
           </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QPushButton" name="userInfoBtn">
+             <property name="font">
+              <font>
+               <pointsize>13</pointsize>
+              </font>
+             </property>
+             <property name="focusPolicy">
+              <enum>Qt::NoFocus</enum>
+             </property>
+             <property name="toolTip">
+              <string>Click to toggle show/hide</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">Text-align:left;</string>
+             </property>
+             <property name="text">
+              <string>  User Info</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="infoSyncBtn">
+             <property name="text">
+              <string>Sync</string>
+             </property>
+             <property name="icon">
+              <iconset theme="sync" resource="../../../resources.qrc">
+               <normaloff>:/assets/icons/ui_light/connect.png</normaloff>:/assets/icons/ui_light/connect.png</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="userInfoLayout">
+           <item row="0" column="0" alignment="Qt::AlignHCenter">
+            <widget class="QLabel" name="userInfoBrowser">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>220</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Airport Not Found</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5">

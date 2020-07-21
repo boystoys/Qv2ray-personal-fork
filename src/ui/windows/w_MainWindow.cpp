@@ -26,6 +26,7 @@
 
 #define GetItemWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionListWidget->itemWidget(item, 0)))
 #define NumericString(i) (QString("%1").arg(i, 30, 10, QLatin1Char('0')))
+bool isUserInfoGot = false;
 
 QvMessageBusSlotImpl(MainWindow)
 {
@@ -338,6 +339,37 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     auto checker = new QvUpdateChecker(this);
     checker->CheckUpdate();
+    PluginHost->Send_UserInfoEvent({ true });
+
+    auto pluginUserInfoWidgetsInfos = PluginHost->GetUserInfoWidgets();
+    for (const auto &plugin : pluginUserInfoWidgetsInfos)
+    {
+        plugin->FetchUserInfo();
+        if (!isUserInfoGot)
+        {
+            userInfoLayout->removeWidget(userInfoBrowser);
+            userInfoBrowser->hide();
+            isUserInfoGot = true;
+        }
+        auto Json = plugin->GetUserSublink();
+        GroupId id;
+        bool imported = false;
+        for (const auto &group : ConnectionManager->AllGroups())
+        {
+            if (Json["name"].toString() == GetDisplayName(group))
+            {
+                id = group;
+                imported = true;
+            }
+        }
+        if (!imported)
+        {
+            id = ConnectionManager->CreateGroup(Json["name"].toString(), true);
+        }
+        ConnectionManager->SetSubscriptionData(id, std::nullopt, Json["sublink"].toString(), 1.00);
+        ConnectionManager->UpdateSubscription(id);
+        userInfoLayout->addWidget(plugin);
+    }
 }
 
 void MainWindow::ProcessCommand(QString command, QStringList commands, QMap<QString, QString> args)
@@ -986,6 +1018,25 @@ void MainWindow::on_chartVisibilityBtn_clicked()
 void MainWindow::on_logVisibilityBtn_clicked()
 {
     masterLogBrowser->setVisible(!masterLogBrowser->isVisible());
+}
+
+void MainWindow::on_userInfoBtn_clicked()
+{
+    if (!isUserInfoGot)
+    {
+        userInfoBrowser->setVisible(!userInfoBrowser->isVisible());
+    }
+}
+
+void MainWindow::on_infoSyncBtn_clicked()
+{
+    PluginHost->Send_UserInfoEvent({ true });
+    auto pluginUserInfoWidgetsInfos = PluginHost->GetUserInfoWidgets();
+    bool deleted = false;
+    for (const auto &plugin : pluginUserInfoWidgetsInfos)
+    {
+        plugin->FetchUserInfo();
+    }
 }
 
 void MainWindow::on_clearChartBtn_clicked()

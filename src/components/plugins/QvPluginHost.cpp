@@ -226,6 +226,45 @@ namespace Qv2ray::components::plugins
         }
     }
 
+    void QvPluginHost::Send_OnLaunchEvent(const Events::OnLaunch::EventObject &object)
+    {
+        LOG(MODULE_PLUGINHOST, "EventOnLaunch");
+        for (const auto& plugin : plugins)
+        {
+            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_ACTIONS))
+            {
+                LOG(MODULE_PLUGINHOST, "EventOnLaunch Caught")
+                plugin.pluginInterface->GetEventHandler()->ProcessEvent_OnLaunch(object);
+            }
+        }
+    }
+
+    void QvPluginHost::Send_OnStopEvent(const Events::OnStop::EventObject &object)
+    {
+        LOG(MODULE_PLUGINHOST, "EventOnStop");
+        for (const auto &plugin : plugins)
+        {
+            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_ACTIONS))
+            {
+                LOG(MODULE_PLUGINHOST, "EventOnStop Caught");
+                plugin.pluginInterface->GetEventHandler()->ProcessEvent_OnStop(object);
+            }
+        }
+    }
+
+    void QvPluginHost::Send_UserInfoEvent(const Events::UserInfo::EventObject &object)
+    {
+        LOG(MODULE_PLUGINHOST, "EventOnGettingUserInfo");
+        for (const auto &plugin : plugins)
+        {
+            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_USER_INFO))
+            {
+                LOG(MODULE_PLUGINHOST, "EventOnGettingUserInfo Caught");
+                plugin.pluginInterface->GetEventHandler()->ProcessEvent_UserInfo(object);
+            }
+        }
+    }
+
     const QList<QvPluginEditor *> QvPluginHost::GetOutboundEditorWidgets() const
     {
         QList<QvPluginEditor *> data;
@@ -237,6 +276,22 @@ namespace Qv2ray::components::plugins
             if (editor)
             {
                 data.append(editor.release());
+            }
+        }
+        return data;
+    }
+
+    const QList<QvUserInfo *> QvPluginHost::GetUserInfoWidgets() const
+    {
+         QList<QvUserInfo *> data;
+        for (const auto &plugin : plugins)
+        {
+            if (!plugin.isLoaded || !plugin.metadata.Capabilities.contains(CAPABILITY_USER_INFO))
+                continue;
+            auto info = plugin.pluginInterface->GetUserInfoWidget();
+            if (info)
+            {
+                data.append(info.release());
             }
         }
         return data;
