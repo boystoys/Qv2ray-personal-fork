@@ -53,20 +53,6 @@ jobs:
         if: github.event_name == 'release' && matrix.distro == 'unstable'
         run: |
           sleep 120
-      - name: Setup Repository
-        if: github.event_name == 'release' && !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') && !contains(github.ref, 'rc') && !contains(github.ref, 'pre')
-        run: |
-          git clone https://github.com/Qv2ray/debian.git archive
-          echo ${{ secrets.DEBIAN_REPO_KEY }} | base64 -d > private.key
-          gpg --import private.key
-          cd archive
-          git config --local user.name "${{ github.actor }}"
-          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
-          git remote set-url origin https://${{ github.actor }}:${{ secrets.DEBIAN_REPO_TOKEN }}@github.com/Qv2ray/debian.git
-          reprepro includedeb ${{ matrix.distro }} ../*.deb
-          git add -A
-          git commit -am 'update'
-          git push origin master
       - name: Get package name
         id: get_package
         run: echo ::set-output name=NAME::$(basename qv2ray_*.deb)
